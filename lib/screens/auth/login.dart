@@ -46,6 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
+                  height: 10,
+                ),
+                Container(
                   color: Colors.black,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

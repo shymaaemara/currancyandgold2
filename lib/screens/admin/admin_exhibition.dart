@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../models/exhibit_model.dart';
 import 'Add_exhibition.dart';
+
 class AdminExhibition extends StatefulWidget {
   static const routeName = '/AdminExhibition';
   const AdminExhibition({super.key});
@@ -25,8 +25,8 @@ class _AdminExhibitionState extends State<AdminExhibition> {
     super.didChangeDependencies();
     fetchexhibittions();
   }
-  @override
 
+  @override
   @override
   void fetchexhibittions() async {
     app = await Firebase.initializeApp();
@@ -44,99 +44,106 @@ class _AdminExhibitionState extends State<AdminExhibition> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Directionality(
-        textDirection: TextDirection.rtl,child:
-        Scaffold(
-          appBar: AppBar(
-          leading: BackButton(color: Colors.black),
-          title: Text('اضافة معارض',
-              style: TextStyle(color: Colors.black)),
-          backgroundColor: Colors.amber.shade500,
-        ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.amber.shade500,
-            onPressed: () {
-              Navigator.pushNamed(context, AddExhibition.routeName);
-            },
-            child: Icon(Icons.add),
-          ),
-          body: Container(child: Container(
-    color: Colors.black,
-    child:  Container(
-        width: double.infinity,
-        child: GridView.builder(
-            padding: EdgeInsets.only(
-                top: 15,
-                left: 15,
-                right: 15,
-                bottom: 15
+    return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+            appBar: AppBar(
+              leading: BackButton(color: Colors.black),
+              title: Text('اضافة معارض', style: TextStyle(color: Colors.black)),
+              backgroundColor: Colors.amber.shade500,
             ),
-            itemCount: ExhibitList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 15,crossAxisSpacing: 5,mainAxisExtent: 250), itemBuilder: (context,i){
-          return
-
-            Card(
-
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.amber.shade500,
+              onPressed: () {
+                Navigator.pushNamed(context, AddExhibition.routeName);
+              },
+              child: Icon(Icons.add),
+            ),
+            body: Container(
+              child: Container(
+                color: Colors.black,
+                child: Container(
+                    width: double.infinity,
+                    child: GridView.builder(
+                        padding: EdgeInsets.only(
+                            top: 15, left: 15, right: 15, bottom: 15),
+                        itemCount: ExhibitList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 15,
+                            crossAxisSpacing: 5,
+                            mainAxisExtent: 250),
+                        itemBuilder: (context, i) {
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: Colors.amber.shade500,
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: NetworkImage(
+                                      '${ExhibitList[i].imageUrl.toString()}'),
+                                ),
+                                Text(
+                                  '${ExhibitList[i].name.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  '${ExhibitList[i].email.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black),
+                                ),
+                                Text(
+                                  'كلمة المرور: ${ExhibitList[i].password.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black),
+                                ),
+                                Text(
+                                  'الهاتف: ${ExhibitList[i].phone.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black),
+                                ),
+                                Container(
+                                    child: Text(
+                                  '${ExhibitList[i].address.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black),
+                                )),
+                                InkWell(
+                                  onTap: () async {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                AdminExhibition()));
+                                    FirebaseDatabase.instance
+                                        .reference()
+                                        .child('Exhabitions')
+                                        .child('$ExhibitList[i].id}')
+                                        .remove();
+                                  },
+                                  child: Icon(Icons.delete,
+                                      color:
+                                          Color.fromARGB(255, 122, 122, 122)),
+                                )
+                              ],
+                            ),
+                          );
+                        })),
               ),
-              color: Colors.amber.shade500,
-
-              child: Column(children: [
-                CircleAvatar(
-                  radius: 37,
-                  backgroundImage: NetworkImage(
-                      '${ExhibitList[i].imageUrl.toString()}'),
-                ),
-
-                Text(
-                  '${ExhibitList[i].name.toString()}',
-                  style:
-                  TextStyle(fontSize: 18, fontWeight: FontWeight.w600,color: Colors.white),
-                ),
-
-
-                Text('${ExhibitList[i].email.toString()}'),
-
-
-                Text(
-                    'كلمة المرور: ${ExhibitList[i].password.toString()}'),
-
-
-
-
-
-                Text(
-                    'الهاتف: ${ExhibitList[i].phone.toString()}'),
-
-                Container(
-                    child: Text('${ExhibitList[i].address.toString()}')),
-                InkWell(
-                  onTap: () async {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                AdminExhibition()));
-                    FirebaseDatabase.instance
-                        .reference()
-                        .child('Exhabitions')
-                        .child('$ExhibitList[i].id}')
-                        .remove();
-                  },
-                  child: Icon(Icons.delete,
-                      color: Color.fromARGB(255, 122, 122, 122)),
-                )
-              ],),
-
-            )
-
-          ;
-        }
-
-        )),
-            ),
-          ) ) );
+            )));
   }
 }

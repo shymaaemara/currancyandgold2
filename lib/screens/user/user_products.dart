@@ -82,10 +82,10 @@ class _UserProductsState extends State<UserProducts> {
                             child: Column(
                               children: [
                                 Container(
-                                  height: 10,
+                                  height: 5,
                                 ),
                                 CircleAvatar(
-                                  radius: 50,
+                                  radius: 55,
                                   backgroundImage: NetworkImage(
                                       '${ProductList[i].imageUrl.toString()}'),
                                 ),

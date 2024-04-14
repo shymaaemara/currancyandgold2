@@ -20,8 +20,8 @@ class _UserCartState extends State<UserCart> {
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var addressController = TextEditingController();
-  var numberController = TextEditingController();
-
+  var earatController = TextEditingController();
+  var productController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -36,6 +36,7 @@ class _UserCartState extends State<UserCart> {
               actions: [],
             ),
             body: Container(
+              color: Colors.black,
               padding: EdgeInsets.all(20),
               child: ListView(
                 children: [
@@ -58,7 +59,9 @@ class _UserCartState extends State<UserCart> {
                       child: Text(
                     "اهلا بك ",
                     style: TextStyle(
-                        fontSize: 25, fontFamily: "yel", color: Colors.black),
+                        fontSize: 25,
+                        fontFamily: "yel",
+                        color: Colors.amberAccent),
                   )),
                   Container(
                     height: 20,
@@ -74,24 +77,7 @@ class _UserCartState extends State<UserCart> {
                           borderSide: BorderSide(color: Colors.amber.shade600),
                         ),
                         hintText: "الاسم",
-                        hintStyle: TextStyle(color: Colors.black),
-                        labelStyle: TextStyle(color: Colors.amber.shade500),
-                      )),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextField(
-                      controller: numberController,
-                      style: TextStyle(
-                          fontFamily: "yel", color: Colors.amber.shade500),
-                      keyboardType: TextInputType.text,
-                      decoration: new InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Colors.amber.shade600),
-                        ),
-                        hintText: "كم قطعه",
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintStyle: TextStyle(color: Colors.amber.shade500),
                         labelStyle: TextStyle(color: Colors.amber.shade500),
                       )),
                   SizedBox(
@@ -107,8 +93,42 @@ class _UserCartState extends State<UserCart> {
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: Colors.amber.shade600),
                         ),
-                        hintText: "العنوان",
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintText: "   العنوان ",
+                        hintStyle: TextStyle(color: Colors.amber.shade500),
+                        labelStyle: TextStyle(color: Colors.amber.shade500),
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                      controller: productController,
+                      style: TextStyle(
+                          fontFamily: "yel", color: Colors.amber.shade500),
+                      keyboardType: TextInputType.text,
+                      decoration: new InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: Colors.amber.shade600),
+                        ),
+                        hintText: "اسم المنتج",
+                        hintStyle: TextStyle(color: Colors.amber.shade500),
+                        labelStyle: TextStyle(color: Colors.amber.shade500),
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                      controller: earatController,
+                      style: TextStyle(
+                          fontFamily: "yel", color: Colors.amber.shade500),
+                      keyboardType: TextInputType.text,
+                      decoration: new InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: Colors.amber.shade600),
+                        ),
+                        hintText: "عيار",
+                        hintStyle: TextStyle(color: Colors.amber.shade500),
                         labelStyle: TextStyle(color: Colors.amber.shade500),
                       )),
                   SizedBox(
@@ -125,7 +145,7 @@ class _UserCartState extends State<UserCart> {
                           borderSide: BorderSide(color: Colors.amber.shade600),
                         ),
                         hintText: "رقم التلفون",
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintStyle: TextStyle(color: Colors.amber.shade500),
                         labelStyle: TextStyle(color: Colors.amber.shade500),
                       )),
                   Container(
@@ -138,7 +158,8 @@ class _UserCartState extends State<UserCart> {
                     ),
                     onPressed: () async {
                       String name = nameController.text.trim();
-                      String number = numberController.text.trim();
+                      String product = productController.text.trim();
+                      int earat = int.parse(earatController.text);
                       String address = addressController.text.trim();
                       String phone = phoneController.text.trim();
 
@@ -146,11 +167,16 @@ class _UserCartState extends State<UserCart> {
                         Fluttertoast.showToast(msg: 'Please enter name');
                         return;
                       }
+                      if (product.isEmpty) {
+                        Fluttertoast.showToast(msg: 'Please enter product');
+                        return;
+                      }
+
                       if (phone.isEmpty) {
                         Fluttertoast.showToast(msg: 'Please enter phone');
                         return;
                       }
-                      if (number.isEmpty) {
+                      if (earat == null) {
                         Fluttertoast.showToast(msg: 'Please enter count ');
                         return;
                       }
@@ -175,7 +201,8 @@ class _UserCartState extends State<UserCart> {
                           'name': name,
                           'address': address,
                           'uid': uid,
-                          'number ': number,
+                          'product': product,
+                          'earat': earat,
                           'id': id,
                           'phone': phone,
                         });

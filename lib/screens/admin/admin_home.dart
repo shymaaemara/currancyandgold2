@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'admin_company.dart';
 import 'admin_currency.dart';
 import 'admin_exhibition.dart';
 import 'admin_gold.dart';
-
 
 class AdminHomePage extends StatefulWidget {
   static const routeName = '/adminHomeScreen';
@@ -26,8 +24,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Align(
-            alignment: Alignment.center,
-            child: Text("الصفحة الرئيسية", style: TextStyle(color: Colors.black))),
+              alignment: Alignment.center,
+              child: Text("الصفحة الرئيسية",
+                  style: TextStyle(color: Colors.black))),
           backgroundColor: Colors.amber.shade500,
           actions: [],
         ),
@@ -36,7 +35,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
           child: ListView(
             children: [
               Image(
-                image: AssetImage('assets/images/jojo.PNG'),
+                image: AssetImage('assets/images/img.jfif'),
                 width: double.infinity,
               ),
               Center(
@@ -138,7 +137,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                         side: BorderSide(
                                             color: Colors.blue.shade900)))),
                             onPressed: () {
-                               Navigator.of(context).push(MaterialPageRoute(
+                              Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => AdminCompany()));
                             },
                             icon: Icon(Icons.ac_unit),
@@ -198,7 +197,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),

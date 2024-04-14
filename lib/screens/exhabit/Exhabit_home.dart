@@ -63,36 +63,34 @@ class _ExhabitHomeState extends State<ExhabitHome> {
                   child: Text("الصفحة الرئيسية",
                       style: TextStyle(color: Colors.black))),
               backgroundColor: Colors.amber.shade500,
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Confirmation!'),
-                              content: Text('Are you sure to logout?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    FirebaseAuth.instance.signOut();
-                                    Navigator.pushNamed(
-                                        context, OpenScreen.routeName);
-                                  },
-                                  child: Text('Yes'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('No'),
-                                ),
-                              ],
-                            );
-                          });
-                    },
-                    icon: Icon(Icons.exit_to_app))
-              ],
+              leading: IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Confirmation!'),
+                            content: Text('Are you sure to logout?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.pushNamed(
+                                      context, OpenScreen.routeName);
+                                },
+                                child: Text('Yes'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('No'),
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                  icon: Icon(Icons.exit_to_app)),
               iconTheme: IconThemeData(color: Colors.black)),
           body: Container(
             color: Colors.black,
@@ -148,6 +146,8 @@ class _ExhabitHomeState extends State<ExhabitHome> {
                                 icon: Icon(Icons.ac_unit),
                                 label: Text(
                                   "المنتجات",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black),
                                 )),
                           ),
                         )),
@@ -177,7 +177,11 @@ class _ExhabitHomeState extends State<ExhabitHome> {
                                           )));
                                 },
                                 icon: Icon(Icons.ac_unit),
-                                label: Text("طلبات الشراء")),
+                                label: Text(
+                                  "طلبات الشراء",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                )),
                           ),
                         ),
                       ],

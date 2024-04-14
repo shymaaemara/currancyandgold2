@@ -1,7 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:currancyandgold2/models/Carts_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../admin/admin_exhibition.dart';
 
@@ -83,7 +85,7 @@ class _ExhabitCartsState extends State<ExhabitCarts> {
                                       color: Colors.amber.shade100,
                                       child: Column(children: [
                                         Container(
-                                          height: 30,
+                                          height: 10,
                                         ),
                                         Text(
                                           '  الاسم: ${cartList[i].name.toString()}',
@@ -92,27 +94,42 @@ class _ExhabitCartsState extends State<ExhabitCarts> {
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black),
                                         ),
-                                        Container(
-                                          height: 10,
-                                        ),
                                         Text(
-                                          '  العنوان: ${cartList[i].address.toString()}',
+                                          '  العنوان : ${cartList[i].address.toString()}',
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black),
                                         ),
                                         Container(
-                                          height: 10,
+                                          height: 5,
                                         ),
                                         Text(
-                                            '  الكميه :${cartList[i].number.toString()}',
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black)),
+                                          '  المنتج: ${cartList[i].product.toString()}',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                        ),
                                         Container(
-                                          height: 10,
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(" عيار:",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black)),
+                                            Text(
+                                                "${cartList[i].earat.toString()}",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black)),
+                                          ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -120,41 +137,68 @@ class _ExhabitCartsState extends State<ExhabitCarts> {
                                           children: [
                                             Text(" التلفون",
                                                 style: TextStyle(
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
                                                     color: Colors.black)),
                                             Text(
                                                 '  ${cartList[i].phone.toString()}    ',
                                                 style: TextStyle(
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
                                                     color: Colors.black)),
                                           ],
                                         ),
                                         Container(
-                                          height: 20,
+                                          height: 5,
                                         ),
-                                        InkWell(
-                                          onTap: () async {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        ExhabitCarts(
-                                                          Exhabit:
-                                                              '${widget.Exhabit}',
-                                                        )));
-                                            FirebaseDatabase.instance
-                                                .reference()
-                                                .child('Carts')
-                                                .child("${widget.Exhabit}")
-                                                .child('${cartList[i].id}')
-                                                .remove();
-                                          },
-                                          child: Icon(Icons.delete,
-                                              color: Color.fromARGB(
-                                                  255, 122, 122, 122)),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MaterialButton(
+                                              color: Colors.amber.shade500,
+                                              onPressed: () {
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.info,
+                                                  animType: AnimType.rightSlide,
+                                                  desc: 'تمت الموافقه بنجاح',
+                                                )..show();
+                                              },
+                                              child: Text(
+                                                "موافقه ",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 15,
+                                            ),
+                                            MaterialButton(
+                                              color: Colors.amber.shade500,
+                                              onPressed: () {
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            super.widget));
+                                                FirebaseDatabase.instance
+                                                    .reference()
+                                                    .child('Carts')
+                                                    .child("${widget.Exhabit}")
+                                                    .child('${cartList[i].id}')
+                                                    .remove();
+                                              },
+                                              child: Text("رفض",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            )
+                                          ],
                                         )
                                       ])));
                             }))))));
